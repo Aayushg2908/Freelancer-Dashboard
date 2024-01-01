@@ -49,9 +49,11 @@ export const ProjectModal = () => {
       title: project ? project.title : "",
       description: project ? project.description : "",
       type: project ? project.type : "",
-      startDate: project ? project.startDate : new Date(),
+      startDate: project
+        ? new Date(project.startDate.getTime() - 24 * 60 * 60 * 60)
+        : new Date(),
       endDate: project
-        ? project.endDate
+        ? new Date(project.endDate.getTime() - 24 * 60 * 60 * 60)
         : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     },
   });
