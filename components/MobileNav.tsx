@@ -48,6 +48,7 @@ export const MobileNav = () => {
                 title={link.title}
                 icon={link.icon}
                 isOpen={isOpen}
+                isMobile={true}
               />
             ))}
           </div>
@@ -56,8 +57,8 @@ export const MobileNav = () => {
               className="flex items-center justify-center"
               variant="secondary"
             >
-              <LogOut size={18} className={cn(isOpen && "mr-2")} />
-              {isOpen && <span>Sign Out</span>}
+              <LogOut size={18} className="mr-2" />
+              <span>Sign Out</span>
             </Button>
           </SignOutButton>
         </div>

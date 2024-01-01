@@ -1,0 +1,1 @@
+export const projectTypes = ["FrontEnd", "BackEnd", "FullStack", "UI/UX"]

@@ -9,6 +9,7 @@ interface SidebarLinkProps {
   title: string;
   icon: any;
   isOpen?: boolean;
+  isMobile?: boolean;
 }
 
 export const SidebarLink = ({
@@ -16,6 +17,7 @@ export const SidebarLink = ({
   title,
   icon: Icon,
   isOpen,
+  isMobile,
 }: SidebarLinkProps) => {
   const pathname = usePathname();
 
@@ -26,13 +28,15 @@ export const SidebarLink = ({
       className={cn(
         "flex items-center p-2 rounded-md",
         isOpen && "pl-3",
-        !isOpen && "justify-center",
+        !isOpen && !isMobile && "justify-center",
         isActive && "bg-slate-100 dark:bg-neutral-800"
       )}
       href={href}
     >
       <Icon className="text-[18px]" />
-      {isOpen && <span className="capitalize text-[16px] pl-5">{title}</span>}
+      {(isMobile || isOpen) && (
+        <span className="capitalize text-[16px] pl-5">{title}</span>
+      )}
     </Link>
   );
 };

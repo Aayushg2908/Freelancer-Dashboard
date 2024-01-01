@@ -4,6 +4,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import ModalProvider from "@/components/providers/modal-provider";
+import { Toaster } from "sonner";
 
 const inter = Poppins({
   subsets: ["latin"],
@@ -28,8 +30,15 @@ export default function RootLayout({
     >
       <html lang="en">
         <body className={inter.className}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ModalProvider />
             {children}
+            <Toaster richColors position="top-center" />
           </ThemeProvider>
         </body>
       </html>

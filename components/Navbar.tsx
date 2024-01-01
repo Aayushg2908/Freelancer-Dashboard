@@ -6,7 +6,7 @@ import { MobileNav } from "./MobileNav";
 
 export const Navbar = () => {
   return (
-    <nav className="px-4 lg:px-6 border-b z-20 sticky top-0 py-4">
+    <nav className="px-4 lg:px-6 border-b z-20 sticky backdrop-blur-lg bg-white/50 dark:bg-transparent/50 top-0 py-4">
       <div className="flex justify-between items-center gap-2">
         <div className="flex items-center gap-x-2">
           <Link
