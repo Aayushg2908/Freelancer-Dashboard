@@ -49,11 +49,9 @@ export const ProjectModal = () => {
       title: project ? project.title : "",
       description: project ? project.description : "",
       type: project ? project.type : "",
-      startDate: project
-        ? new Date(project.startDate.getTime() - 24 * 60 * 60 * 60)
-        : new Date(),
+      startDate: project ? project.startDate : new Date(),
       endDate: project
-        ? new Date(project.endDate.getTime() - 24 * 60 * 60 * 60)
+        ? project.endDate
         : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     },
   });
@@ -71,10 +69,6 @@ export const ProjectModal = () => {
   }, [form, project]);
 
   async function onSubmit(values: z.infer<typeof projectSchema>) {
-    values.startDate = new Date(
-      values.startDate.getTime() + 24 * 60 * 60 * 1000
-    );
-    values.endDate = new Date(values.endDate.getTime() + 24 * 60 * 60 * 1000);
     try {
       setLoading(true);
       if (type === "Add") {

@@ -15,9 +15,6 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
-  console.log(project.startDate);
-  console.log(project.endDate);
-
   return (
     <Card className="hover:bg-gray-50 dark:hover:bg-neutral-800 cursor-pointer">
       <CardHeader>
