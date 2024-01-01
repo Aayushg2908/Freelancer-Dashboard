@@ -87,7 +87,7 @@ export const ClientModal = () => {
           <DialogTitle>{type} Client</DialogTitle>
           <DialogDescription>
             {type === "Add" && "Add a new client here."} Click {type} when
-            you're done.
+            you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

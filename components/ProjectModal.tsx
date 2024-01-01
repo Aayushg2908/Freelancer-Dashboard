@@ -94,7 +94,7 @@ export const ProjectModal = () => {
           <DialogTitle>{type} Project</DialogTitle>
           <DialogDescription>
             {type === "Add" && "Add a new project here."} Click {type} when
-            you're done.
+            you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
