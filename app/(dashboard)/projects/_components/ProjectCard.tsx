@@ -31,13 +31,13 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             <div className="w-full flex flex-col gap-y-2">
               Start Date
               <Badge className="text-center rounded-sm">
-                {project.startDate.toLocaleDateString()}
+                {new Date(project.startDate).toLocaleDateString()}
               </Badge>
             </div>
             <div className="w-full flex flex-col gap-y-2">
               End Date
               <Badge className="text-center rounded-sm">
-                {project.endDate.toLocaleDateString()}
+                {new Date(project.endDate).toLocaleDateString()}
               </Badge>
             </div>
           </div>
@@ -60,12 +60,13 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             ) : (
               <Badge variant="danger">
                 {Math.ceil(
-                  (project.endDate.getTime() - new Date().getTime()) /
+                  (new Date(project.endDate).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
                 ) === 1
                   ? "1 Day remaining"
                   : `${Math.ceil(
-                      (project.endDate.getTime() - new Date().getTime()) /
+                      (new Date(project.endDate).getTime() -
+                        new Date().getTime()) /
                         (1000 * 60 * 60 * 24)
                     )} Days remaining`}
               </Badge>
