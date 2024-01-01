@@ -16,6 +16,7 @@ model User {
   photo String
 
   projects Project[]
+  clients Client[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -28,6 +29,23 @@ model Project {
   type String
   startDate DateTime
   endDate DateTime
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Client {
+  id String @id @default(uuid())
+  name String
+  email String
+  projects String
+  country String
+  referralSource String
 
   userId String
   user User @relation(fields: [userId], references: [id])

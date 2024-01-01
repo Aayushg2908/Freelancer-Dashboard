@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteClient } from "@/actions/clients";
 import { deleteProject } from "@/actions/projects";
 import {
   AlertDialog,
@@ -25,8 +26,9 @@ export const DeleteModal = () => {
       if (type === "project") {
         await deleteProject(id);
         toast.success("Project deleted successfully");
-      } else {
-        toast.error("Invalid type");
+      } else if (type === "client") {
+        await deleteClient(id);
+        toast.success("Client deleted successfully");
       }
       onClose();
     } catch (error: any) {

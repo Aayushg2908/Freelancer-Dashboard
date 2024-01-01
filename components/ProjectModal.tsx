@@ -91,9 +91,10 @@ export const ProjectModal = () => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Project</DialogTitle>
+          <DialogTitle>{type} Project</DialogTitle>
           <DialogDescription>
-            Add a new project here. Click add when you're done.
+            {type === "Add" && "Add a new project here."} Click {type} when
+            you're done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
