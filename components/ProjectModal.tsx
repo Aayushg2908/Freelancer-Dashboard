@@ -69,6 +69,10 @@ export const ProjectModal = () => {
   }, [form, project]);
 
   async function onSubmit(values: z.infer<typeof projectSchema>) {
+    values.startDate = new Date(
+      values.startDate.getTime() + 24 * 60 * 60 * 1000
+    );
+    values.endDate = new Date(values.endDate.getTime() + 24 * 60 * 60 * 1000);
     try {
       setLoading(true);
       if (type === "Add") {
@@ -169,6 +173,7 @@ export const ProjectModal = () => {
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
+                          defaultMonth={field.value}
                           selected={field.value}
                           onSelect={field.onChange}
                           initialFocus
@@ -202,6 +207,7 @@ export const ProjectModal = () => {
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
+                          defaultMonth={field.value}
                           selected={field.value}
                           onSelect={field.onChange}
                           initialFocus
