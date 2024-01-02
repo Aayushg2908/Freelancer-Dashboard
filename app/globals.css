@@ -80,3 +80,73 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+.fc .fc-toolbar {
+  @apply !flex-col !items-center  !gap-y-3 md:!flex-row
+}
+
+.fc-toolbar-title {
+  @apply inline-flex leading-none items-center justify-center rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-neutral-950 dark:focus-visible:ring-neutral-300 border border-neutral-200 bg-white hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-neutral-50 !text-[19px] pt-[10px] p-3 px-4  
+} 
+
+.fc .fc-button:focus {
+  @apply !shadow-none;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:disabled {
+  @apply !shadow-none  !bg-white !text-neutral-900 !border-neutral-900 !opacity-100
+}
+
+.fc .fc-button-primary:disabled {
+  @apply !cursor-not-allowed
+}
+
+.fc .fc-button-primary {
+  @apply !bg-neutral-900 !text-white !border-neutral-900 
+}
+
+.fc .fc-button-primary:not(:disabled) {
+  @apply  hover:!bg-white hover:!text-neutral-900 !transition-colors !duration-200
+}
+
+.fc-theme-standard .fc-list-day-cushion {
+  @apply dark:!bg-[#171717]
+}
+
+.fc-h-event , .fc-v-event {
+  @apply !bg-orange-500 dark:!bg-orange-400 !border-none
+}
+
+.fc-daygrid-event-dot , .fc-list-event-dot {
+  @apply !border-orange-500 dark:!border-orange-400
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+  @apply !shadow-none
+}
+
+.fc-theme-standard .fc-popover {
+  @apply dark:!bg-neutral-900 dark:!border-neutral-700/60 
+}
+
+.fc-theme-standard .fc-popover-header {
+  @apply dark:!bg-neutral-800
+}
+
+.fc-daygrid-dot-event.fc-event-mirror, .fc-daygrid-dot-event {
+  @apply dark:hover:!bg-neutral-800
+}
+
+.fc-view {
+  @apply min-w-[700px]
+}
+
+.fc-view-harness.fc-view-harness-active {
+  @apply overflow-x-auto
+}
+
+.dropDownItem {
+  @apply relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-neutral-100 focus:text-neutral-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-neutral-800 dark:focus:text-neutral-50 hover:bg-slate-200
+}
