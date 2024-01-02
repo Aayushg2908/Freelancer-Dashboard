@@ -31,13 +31,17 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             <div className="w-full flex flex-col gap-y-2">
               Start Date
               <Badge className="text-center rounded-sm">
-                {new Date(project.startDate).toLocaleDateString()}
+                {new Date(
+                  project.startDate.getTime() + 24 * 60 * 60 * 1000
+                ).toLocaleDateString()}
               </Badge>
             </div>
             <div className="w-full flex flex-col gap-y-2">
               End Date
               <Badge className="text-center rounded-sm">
-                {new Date(project.endDate).toLocaleDateString()}
+                {new Date(
+                  project.endDate.getTime() + 24 * 60 * 60 * 1000
+                ).toLocaleDateString()}
               </Badge>
             </div>
           </div>
