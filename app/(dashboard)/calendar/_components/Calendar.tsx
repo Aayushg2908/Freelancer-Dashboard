@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Calendar,
-  DateSelectArg,
-  EventApi,
-  EventClickArg,
-  formatDate,
-} from "@fullcalendar/core";
+import { DateSelectArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -24,16 +18,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { addEvent } from "@/actions/calendar";
@@ -52,9 +36,8 @@ interface CalendarProps {
 export const CalendarComponent = ({ calendarEvents }: CalendarProps) => {
   const { isOpen } = useSidebar();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectEvent, setSelectEvent] = useState<DateSelectArg | null>(null);
-  const [deleteEvent, setDeleteEvent] = useState<EventClickArg | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const eventInputRef = useRef<HTMLInputElement | null>(null);
   const calendarRef = useRef<FullCalendar | null>(null);
@@ -62,11 +45,6 @@ export const CalendarComponent = ({ calendarEvents }: CalendarProps) => {
   const openAddEventDialog = (selected: DateSelectArg) => {
     setIsAddDialogOpen(true);
     setSelectEvent(selected);
-  };
-
-  const openDeleteEventDialog = (selected: EventClickArg) => {
-    setIsDeleteDialogOpen(true);
-    setDeleteEvent(selected);
   };
 
   useEffect(() => {
@@ -77,7 +55,8 @@ export const CalendarComponent = ({ calendarEvents }: CalendarProps) => {
     reSizeCalendar();
   }, [isOpen]);
 
-  const handleAddEvent = () => {
+  const handleAddEvent = async () => {
+    setLoading(true);
     const eventContent = eventInputRef.current?.value.trim() as string;
     if (selectEvent) {
       let calendarApi = selectEvent.view.calendar;
@@ -85,48 +64,34 @@ export const CalendarComponent = ({ calendarEvents }: CalendarProps) => {
 
       if (eventContent === "") {
         toast.error("Please write an event first");
+        setLoading(false);
       } else {
-        calendarApi.addEvent({
+        const values = {
           title: eventContent,
           start: selectEvent.startStr,
           end: selectEvent.endStr,
           allDay: selectEvent.allDay,
-        });
+        };
+        await addEvent(values);
 
         setSelectEvent(null);
         setIsAddDialogOpen(false);
         toast.success("Event added successfully");
+        setLoading(false);
+        window.location.reload();
       }
     }
-  };
-
-  const handleDeleteEvent = () => {
-    deleteEvent?.event.remove();
-    toast.success("Event deleted successfully");
   };
 
   const unsetSelectedEvent = () => {
     setSelectEvent(null);
   };
 
-  const unsetDeletedEvent = () => {
-    setDeleteEvent(null);
-  };
-
-  const setEvents = async (events: any) => {
-    const parsedEvents: calendarType = JSON.parse(JSON.stringify(events));
-    try {
-      await addEvent(parsedEvents);
-    } catch (error) {
-      toast.error("Something went wrong, your events might not be saved");
-    }
-  };
-
   return (
     <>
       <FullCalendar
         ref={calendarRef}
-        height={"77vh"}
+        height="77vh"
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
@@ -139,8 +104,6 @@ export const CalendarComponent = ({ calendarEvents }: CalendarProps) => {
         selectMirror={true}
         dayMaxEvents={true}
         select={openAddEventDialog}
-        eventClick={openDeleteEventDialog}
-        eventsSet={(events) => setEvents(events)}
         initialEvents={calendarEvents}
         longPressDelay={0}
       />
@@ -170,35 +133,17 @@ export const CalendarComponent = ({ calendarEvents }: CalendarProps) => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" className="w-full" onClick={handleAddEvent}>
+            <Button
+              disabled={loading}
+              type="submit"
+              className="w-full"
+              onClick={handleAddEvent}
+            >
               Add
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      <AlertDialog
-        open={isDeleteDialogOpen}
-        onOpenChange={setIsDeleteDialogOpen}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Do you wanna delete your event?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone and it will permanently delete your
-              event
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={unsetDeletedEvent}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteEvent}>
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </>
   );
 };

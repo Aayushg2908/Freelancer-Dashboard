@@ -10,9 +10,9 @@ type calendarType = {
   start: string;
   end: string;
   allDay: boolean;
-}[];
+};
 
-export const addEvent = async (calendarData: calendarType) => {
+export const addEvent = async (values: calendarType) => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -27,22 +27,20 @@ export const addEvent = async (calendarData: calendarType) => {
     throw new Error("User not found");
   }
 
-  calendarData.map(async (calendarEvent) => {
-    await db.event.create({
-      data: {
-        userId: user.id,
-        title: calendarEvent.title,
-        start: calendarEvent.start,
-        end: calendarEvent.end,
-        allDay: calendarEvent.allDay,
-      },
-    });
+  await db.event.create({
+    data: {
+      title: values.title,
+      start: values.start,
+      end: values.end,
+      allDay: values.allDay,
+      userId: user.id,
+    },
   });
 
   revalidatePath("/calendar");
 };
 
-export const getCalendarEvents = async () => {
+export const getEvents = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -60,12 +58,6 @@ export const getCalendarEvents = async () => {
   const events = await db.event.findMany({
     where: {
       userId: user.id,
-    },
-    select: {
-      title: true,
-      start: true,
-      end: true,
-      allDay: true,
     },
   });
 

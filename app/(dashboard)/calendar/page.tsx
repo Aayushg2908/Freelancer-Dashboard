@@ -1,8 +1,8 @@
-import { getCalendarEvents } from "@/actions/calendar";
+import { getEvents } from "@/actions/calendar";
 import { CalendarComponent } from "./_components/Calendar";
 
 const CalendarPage = async () => {
-  const calendarEvents = await getCalendarEvents();
+  const calendarEvents = await getEvents();
 
   return (
     <div className="m-6 flex flex-col">
