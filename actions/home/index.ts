@@ -25,7 +25,21 @@ export const getAllProjects = async () => {
     },
   });
 
-  return projects;
+  const barChartArray: barChartType = [];
+  projects.forEach((project) => {
+    const projectType = project.type;
+    const existingType = barChartArray.find(
+      (item) => item.name === projectType
+    );
+
+    if (existingType) {
+      existingType["Project type count"] += 1;
+    } else {
+      barChartArray.push({ name: projectType, "Project type count": 1 });
+    }
+  });
+
+  return { projects, barChartArray };
 };
 
 export const getAllClients = async () => {
@@ -49,7 +63,21 @@ export const getAllClients = async () => {
     },
   });
 
-  return clients;
+  const donutChartArray: donutChartType = [];
+  clients.forEach((client) => {
+    const referralSource = client.referralSource;
+    const existingSource = donutChartArray.find(
+      (item) => item.name === referralSource
+    );
+
+    if (existingSource) {
+      existingSource.number += 1;
+    } else {
+      donutChartArray.push({ name: referralSource, number: 1 });
+    }
+  });
+
+  return { clients, donutChartArray };
 };
 
 export const getAllTasks = async () => {
