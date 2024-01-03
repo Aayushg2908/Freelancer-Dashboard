@@ -79,7 +79,10 @@ export const TaskContainer = ({ tasksArray }: TaskContainerProps) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <ol className="grid grid-cols-1 gap-y-4 md:gap-x-2 md:grid-cols-3">
         {tasks.map((task, index) => (
-          <li className="mt-6 flex-1 min-h-[400px] bg-slate-50 dark:bg-neutral-800 rounded-md p-4">
+          <li
+            key={index}
+            className="mt-6 flex-1 min-h-[400px] bg-slate-50 dark:bg-neutral-800 rounded-md p-4"
+          >
             <div className="flex gap-x-2 items-center">
               <p
                 className={cn(
@@ -105,7 +108,11 @@ export const TaskContainer = ({ tasksArray }: TaskContainerProps) => {
                 >
                   <div className="mt-4">
                     {tasksArray[index].map((task, index) => (
-                      <Draggable draggableId={task.id} index={index}>
+                      <Draggable
+                        key={index}
+                        draggableId={task.id}
+                        index={index}
+                      >
                         {(provided) => (
                           <div
                             {...provided.draggableProps}

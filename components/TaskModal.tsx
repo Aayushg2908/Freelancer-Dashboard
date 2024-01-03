@@ -65,7 +65,8 @@ export const TaskModal = () => {
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
           <DialogDescription>
-            Fill out the inputs with your task data. Click add when you're done
+            Fill out the inputs with your task data. Click add when you&apos;re
+            done
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
