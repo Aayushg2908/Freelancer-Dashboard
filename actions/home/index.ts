@@ -1,13 +1,10 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { clientSchema } from "@/lib/validations/client";
 import { auth } from "@clerk/nextjs";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 
-export const addClient = async (values: z.infer<typeof clientSchema>) => {
+export const getAllProjects = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -22,29 +19,16 @@ export const addClient = async (values: z.infer<typeof clientSchema>) => {
     throw new Error("User not found");
   }
 
-  const parsedValues = clientSchema.safeParse(values);
-  if (!parsedValues.success) {
-    throw new Error("Invalid values");
-  }
-
-  const { name, email, projects, country, referralSource } = parsedValues.data;
-
-  await db.client.create({
-    data: {
+  const projects = await db.project.findMany({
+    where: {
       userId: user.id,
-      name,
-      email,
-      projects,
-      country,
-      referralSource,
     },
   });
 
-  revalidatePath("/clients");
-  revalidatePath("/");
+  return projects;
 };
 
-export const getClients = async () => {
+export const getAllClients = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -68,7 +52,7 @@ export const getClients = async () => {
   return clients;
 };
 
-export const deleteClient = async (id: string) => {
+export const getAllTasks = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -83,21 +67,16 @@ export const deleteClient = async (id: string) => {
     throw new Error("User not found");
   }
 
-  await db.client.delete({
+  const tasks = await db.task.findMany({
     where: {
-      id,
       userId: user.id,
     },
   });
 
-  revalidatePath("/clients");
-  revalidatePath("/");
+  return tasks;
 };
 
-export const updateClient = async (
-  id: string,
-  values: z.infer<typeof clientSchema>
-) => {
+export const getAllEvents = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -112,27 +91,11 @@ export const updateClient = async (
     throw new Error("User not found");
   }
 
-  const parsedValues = clientSchema.safeParse(values);
-  if (!parsedValues.success) {
-    throw new Error("Invalid values");
-  }
-
-  const { name, email, projects, country, referralSource } = parsedValues.data;
-
-  await db.client.update({
+  const events = await db.event.findMany({
     where: {
-      id,
       userId: user.id,
-    },
-    data: {
-      name,
-      email,
-      projects,
-      country,
-      referralSource,
     },
   });
 
-  revalidatePath("/clients");
-  revalidatePath("/");
+  return events;
 };

@@ -38,6 +38,7 @@ export const addEvent = async (values: calendarType) => {
   });
 
   revalidatePath("/calendar");
+  revalidatePath("/");
 };
 
 export const getEvents = async () => {

@@ -43,6 +43,7 @@ export const addTask = async (values: z.infer<typeof taskSchema>) => {
   });
 
   revalidatePath("/kanban");
+  revalidatePath("/");
 };
 
 export const getTaskByStatus = async (status: TaskStatus) => {
@@ -92,6 +93,7 @@ export const deleteTask = async (id: string) => {
   });
 
   revalidatePath("/kanban");
+  revalidatePath("/");
 };
 
 export const updateTaskInSameStatus = async (
@@ -127,6 +129,7 @@ export const updateTaskInSameStatus = async (
   const updatedTasks = await db.$transaction(tasks);
 
   revalidatePath("/kanban");
+  revalidatePath("/");
 
   return updatedTasks;
 };

@@ -41,6 +41,7 @@ export const addProject = async (values: z.infer<typeof projectSchema>) => {
   });
 
   revalidatePath("/projects");
+  revalidatePath("/");
 };
 
 export const getProjects = async (search: string | undefined) => {
@@ -94,6 +95,7 @@ export const deleteProject = async (id: string) => {
   });
 
   revalidatePath("/projects");
+  revalidatePath("/");
 };
 
 export const updateProject = async (
@@ -136,4 +138,5 @@ export const updateProject = async (
   });
 
   revalidatePath("/projects");
+  revalidatePath("/");
 };
