@@ -18,6 +18,7 @@ model User {
   projects Project[]
   clients Client[]
   events Event[]
+  tasks Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,6 +68,27 @@ model Event {
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+enum TaskStatus {
+  TODO
+  DOING
+  DONE
+}
+
+model Task {
+  id String @id @default(uuid())
+  content String
+  Status TaskStatus
+  order Int
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }

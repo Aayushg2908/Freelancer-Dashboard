@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ProjectModal } from "../ProjectModal";
 import { DeleteModal } from "../DeleteModal";
 import { ClientModal } from "../ClientModal";
+import { TaskModal } from "../TaskModal";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -19,6 +20,7 @@ const ModalProvider = () => {
       <ProjectModal />
       <DeleteModal />
       <ClientModal />
+      <TaskModal />
     </>
   );
 };

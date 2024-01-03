@@ -2,6 +2,7 @@
 
 import { deleteClient } from "@/actions/clients";
 import { deleteProject } from "@/actions/projects";
+import { deleteTask } from "@/actions/tasks";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +30,9 @@ export const DeleteModal = () => {
       } else if (type === "client") {
         await deleteClient(id);
         toast.success("Client deleted successfully");
+      } else if (type === "task") {
+        await deleteTask(id);
+        toast.success("Task deleted successfully");
       }
       onClose();
     } catch (error: any) {
