@@ -53,7 +53,6 @@ export const TaskContainer = ({ tasksArray }: TaskContainerProps) => {
         );
         if (updatedTasks) {
           toast.success("Task reordered successfully");
-          window.location.reload();
         }
       } else {
         const sourceStatus = source.droppableId;
@@ -70,7 +69,6 @@ export const TaskContainer = ({ tasksArray }: TaskContainerProps) => {
         });
         await updateTaskInSameStatus(destinationTaskArray, destinationStatus);
         toast.success("Task reordered successfully");
-        window.location.reload();
       }
     }
   };
