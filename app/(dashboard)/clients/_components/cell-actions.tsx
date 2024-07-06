@@ -53,7 +53,7 @@ export const CellActions = ({ data }: Props) => {
           className="cursor-pointer"
           onSelect={() => updateClientOpen("Update", data)}
         >
-          Edit Project
+          Edit Client
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
